@@ -1,3 +1,4 @@
 module.exports = {
-    normalization2NF: require('./normalization2NF')
+    denormalization2NF: require('./denormalization2NF'),
+    sanityCheck: require('./sanityCheck')
 }

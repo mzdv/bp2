@@ -10,26 +10,30 @@ module.exports = [
     },
     {
         name: 'Denormalizacija 2NF',
-        activate: function () { query.denormalization2NF(); }
+        activate: query.denormalization2NF
     },
     {
         name: 'Denormalizacija 3NF',
-        activate: function () { query.denormalization3NF(); }
+        activate: query.denormalization3NF
     },
     {
         name: 'Struktuirani tip',
-        activate: function () { query.structuredType(); }
+        activate: query.structuredType
     },
     {
         name: 'Distinct tip',
-        activate: function () { query.distinctType(); }
+        activate: query.distinctType
     },
     {
         name: 'Izvedene vrednosti',
-        activate: function () { query.derivableValues(); }
+        activate: query.derivableValues
     },
     {
         name: 'Vertikalno particionisanje',
-        activate: function () { query.verticalPartitioning(); }
+        activate: query.verticalPartitioning
+    },
+    {
+        name: 'Sanity check',
+        activate: query.sanityCheck
     }
 ];

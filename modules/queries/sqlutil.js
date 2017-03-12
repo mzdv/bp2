@@ -6,3 +6,12 @@ module.exports.release = function (connection) {
             }
         });
 };
+
+module.exports.formatData = function (header, rows) {
+    var parsedHeader = header.map((data) => {
+        return data.name;
+    });
+    var parsedRows = rows[0];
+
+    return [parsedHeader, parsedRows];
+}

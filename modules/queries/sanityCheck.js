@@ -1,4 +1,6 @@
 var oracledb = require('oracledb');
+var { table } = require('table');
+
 var dbconf = require('../dbconf');
 var sqlutil = require('./sqlutil');
 
@@ -15,9 +17,9 @@ module.exports = function () {
                         sqlutil.release(conn);
                         return;
                     } else {
-                        console.log(res.metaData);
-                        console.log(res.rows);
+                        console.log(table(sqlutil.formatData(res.metaData, res.rows)));
                         sqlutil.release(conn);
+                        return;
                     }
                 });
         }

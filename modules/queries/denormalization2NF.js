@@ -17,7 +17,7 @@ module.exports = function () {
                         sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
-                        console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                        console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
 
                         conn.execute('SELECT * FROM STAVKAPONUDE WHERE SIFRA=1222',
                             (err, res) => {
@@ -26,7 +26,7 @@ module.exports = function () {
                                     sqlutil.base.releaseConnection(conn);
                                     return;
                                 } else {
-                                    console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                    console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
 
                                     conn.execute('ALTER TRIGGER PONUDA_AU COMPILE', (err, res) => {
                                         if (err) {
@@ -47,21 +47,21 @@ module.exports = function () {
                                                                     console.error(err.message);
                                                                     sqlutil.base.releaseConnection(conn);
                                                                 } else {
-                                                                    console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                                                    console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
                                                                     conn.execute('SELECT * FROM STAVKAPONUDE WHERE SIFRA=1222',
                                                                         (err, res) => {
                                                                             if (err) {
                                                                                 console.error(err.message);
                                                                                 sqlutil.base.releaseConnection(conn);
                                                                             } else {
-                                                                                console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                                                                console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
                                                                                 conn.execute("UPDATE STAVKAPONUDE SET NASLOV = 'APR' WHERE SIFRA=1222",
                                                                                     (err, res) => {
                                                                                         if (err) {
                                                                                             console.log(err.message);
                                                                                             sqlutil.base.releaseConnection(conn);
                                                                                         } else {
-                                                                                            console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                                                                            console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
                                                                                             sqlutil.base.releaseConnection(conn);
                                                                                         }
                                                                                     });

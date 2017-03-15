@@ -120,7 +120,22 @@ let menuTree = [
     },
     {
         name: 'Sanity check',
-        activate: query.sanityCheck
+        submenu: function () {
+            let appOptions = menu('Izaberite opciju', (option) => {
+                option.performAction();
+            });
+
+            menuTree[5].operations.forEach((binding) => {
+                appOptions.add(binding);
+            });
+        },
+        operations: [
+            {
+                name: 'Pokreni',
+                performAction: query.sanityCheck.amIReal
+
+            }
+        ]
     }
 ];
 

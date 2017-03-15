@@ -17,7 +17,7 @@ module.exports = function () {
                         sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
-                        console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                        console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
                         sqlutil.base.releaseConnection(conn);
                         return;
                     }

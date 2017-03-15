@@ -16,7 +16,7 @@ module.exports = function () {
                         sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
-                        console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                        console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
 
                         conn.execute('SELECT * FROM RACUN',
                             (err, res) => {
@@ -25,7 +25,7 @@ module.exports = function () {
                                     sqlutil.base.releaseConnection(conn);
                                     return;
                                 } else {
-                                    console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                    console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
 
                                     conn.execute('ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE', (err, res) => {
                                         if (err) {
@@ -46,7 +46,7 @@ module.exports = function () {
                                                                     console.error(err.message);
                                                                     sqlutil.base.releaseConnection(conn);
                                                                 } else {
-                                                                    console.log(table(sqlutil.formatData(res.metaData, res.rows)));
+                                                                    console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
                                                                     conn.execute("UPDATE RACUN SET IME='Marko' WHERE SIFRA=9999",
                                                                         (err, res) => {
                                                                             if (err) {

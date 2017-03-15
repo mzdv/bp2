@@ -1,5 +1,5 @@
-var oracledb = require('oracledb');
-var dbconf = require('../dbconf');
+let oracledb = require('oracledb');
+let dbconf = require('../dbconf');
 
 let sqlutil = {
     base: {
@@ -12,10 +12,10 @@ let sqlutil = {
                 });
         },
         formatDataFromDb: function (header, rows) {
-            var parsedHeader = header.map((data) => {
+            let parsedHeader = header.map((data) => {
                 return data.name;
             });
-            var parsedRows = rows[0] || [null];
+            let parsedRows = rows[0] || [null];
 
             return [parsedHeader, parsedRows];
         }

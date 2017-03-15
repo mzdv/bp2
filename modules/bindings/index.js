@@ -1,6 +1,6 @@
-var menu = require('appendable-cli-menu');
+let menu = require('appendable-cli-menu');
 
-var query = require('../queries');
+let query = require('../queries');
 
 let menuTree = [
     {
@@ -21,7 +21,7 @@ let menuTree = [
     {
         name: 'Carinski dokument',
         submenu: function () {
-            var appOptions = menu('Izaberite opciju', (option) => {
+            let appOptions = menu('Izaberite opciju', (option) => {
                 option.performAction();
             });
 

@@ -1,16 +1,16 @@
-var readline = require('readline');
+let readline = require('readline');
 
-var oracledb = require('oracledb');
-var { table } = require('table');
+let oracledb = require('oracledb');
+let { table } = require('table');
 
-var dbconf = require('../dbconf');
+let dbconf = require('../dbconf');
 let simpleQueries = require('../parametrizedQueries');
-var sqlutil = require('../sqlutil');
+let sqlutil = require('../sqlutil');
 
 let statements = {
     selectOne: function () {
 
-        var rl = readline.createInterface({
+        let rl = readline.createInterface({
             input: process.stdin
         });
 
@@ -114,7 +114,7 @@ let statements = {
         });
     },
     create: function (sifra, serijskiBroj, laboratorija, sadrzaj, datum) {
-        var rl = readline.createInterface({
+        let rl = readline.createInterface({
             input: process.stdin
         });
 
@@ -137,14 +137,14 @@ let statements = {
         });
     },
     update: function (column, value, id) {
-        var rl = readline.createInterface({
+        let rl = readline.createInterface({
             input: process.stdin
         });
 
         console.log('Unesite column,value,id sa zarezima:\n');
 
         rl.on('line', (line) => {
-            var params = line.split(',');
+            let params = line.split(',');
             rl.close();
 
             sqlutil.transactions.modifyTable(
@@ -160,7 +160,7 @@ let statements = {
         });
     },
     deleteOne: function (id) {
-        var rl = readline.createInterface({
+        let rl = readline.createInterface({
             input: process.stdin
         });
 

@@ -8,7 +8,7 @@ console.log(chalk.magenta('Milos Zivadinovic 3028/16 2017'));
 console.log(chalk.cyan('--------------------------------'));
 
 var appOptions = menu('Izaberite opciju', (option) => {
-    option.activate();
+    option.submenu();
 });
 
 bindings.forEach((binding) => {

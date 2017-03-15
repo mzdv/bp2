@@ -7,11 +7,11 @@ module.exports.release = function (connection) {
         });
 };
 
-module.exports.formatData = function (header, rows) {
+module.exports.formatDataFromDb = function (header, rows) {
     var parsedHeader = header.map((data) => {
         return data.name;
     });
-    var parsedRows = rows[0];
+    var parsedRows = rows[0] || [null];
 
     return [parsedHeader, parsedRows];
 }

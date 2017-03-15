@@ -13,7 +13,7 @@ module.exports = function () {
                 (err, res) => {
                     if (err) {
                         console.error(err.message);
-                        sqlutil.release(conn);
+                        sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
                         console.log(table(sqlutil.formatData(res.metaData, res.rows)));
@@ -22,7 +22,7 @@ module.exports = function () {
                             (err, res) => {
                                 if (err) {
                                     console.error(err.message);
-                                    sqlutil.release(conn);
+                                    sqlutil.base.releaseConnection(conn);
                                     return;
                                 } else {
                                     console.log(table(sqlutil.formatData(res.metaData, res.rows)));
@@ -30,7 +30,7 @@ module.exports = function () {
                                     conn.execute('ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE', (err, res) => {
                                         if (err) {
                                             console.error(err.message);
-                                            sqlutil.release(conn);
+                                            sqlutil.base.releaseConnection(conn);
                                             return;
 
                                         } else {
@@ -38,22 +38,22 @@ module.exports = function () {
                                                 (err, res) => {
                                                     if (err) {
                                                         console.error(err.message);
-                                                        sqlutil.release(conn);
+                                                        sqlutil.base.releaseConnection(conn);
                                                     } else {
                                                         conn.execute('SELECT * FROM RACUN',
                                                             (err, res) => {
                                                                 if (err) {
                                                                     console.error(err.message);
-                                                                    sqlutil.release(conn);
+                                                                    sqlutil.base.releaseConnection(conn);
                                                                 } else {
                                                                     console.log(table(sqlutil.formatData(res.metaData, res.rows)));
                                                                     conn.execute("UPDATE RACUN SET IME='Marko' WHERE SIFRA=9999",
                                                                         (err, res) => {
                                                                             if (err) {
                                                                                 console.error(err.message);
-                                                                                sqlutil.release(conn);
+                                                                                sqlutil.base.releaseConnection(conn);
                                                                             } else {
-                                                                                sqlutil.release(conn);
+                                                                                sqlutil.base.releaseConnection(conn);
                                                                             }
                                                                         });
                                                                 }

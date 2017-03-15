@@ -14,11 +14,11 @@ module.exports = function () {
                 (err, res) => {
                     if (err) {
                         console.error(err.message);
-                        sqlutil.release(conn);
+                        sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
                         console.log(table(sqlutil.formatData(res.metaData, res.rows)));
-                        sqlutil.release(conn);
+                        sqlutil.base.releaseConnection(conn);
                     }
                 });
         }

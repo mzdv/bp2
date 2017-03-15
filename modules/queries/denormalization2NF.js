@@ -14,7 +14,7 @@ module.exports = function () {
                 (err, res) => {
                     if (err) {
                         console.error(err.message);
-                        sqlutil.release(conn);
+                        sqlutil.base.releaseConnection(conn);
                         return;
                     } else {
                         console.log(table(sqlutil.formatData(res.metaData, res.rows)));
@@ -23,7 +23,7 @@ module.exports = function () {
                             (err, res) => {
                                 if (err) {
                                     console.error(err.message);
-                                    sqlutil.release(conn);
+                                    sqlutil.base.releaseConnection(conn);
                                     return;
                                 } else {
                                     console.log(table(sqlutil.formatData(res.metaData, res.rows)));
@@ -31,7 +31,7 @@ module.exports = function () {
                                     conn.execute('ALTER TRIGGER PONUDA_AU COMPILE', (err, res) => {
                                         if (err) {
                                             console.error(err.message);
-                                            sqlutil.release(conn);
+                                            sqlutil.base.releaseConnection(conn);
                                             return;
 
                                         } else {
@@ -39,30 +39,30 @@ module.exports = function () {
                                                 (err, res) => {
                                                     if (err) {
                                                         console.error(err.message);
-                                                        sqlutil.release(conn);
+                                                        sqlutil.base.releaseConnection(conn);
                                                     } else {
                                                         conn.execute('SELECT * FROM PONUDA WHERE SIFRA=123456',
                                                             (err, res) => {
                                                                 if (err) {
                                                                     console.error(err.message);
-                                                                    sqlutil.release(conn);
+                                                                    sqlutil.base.releaseConnection(conn);
                                                                 } else {
                                                                     console.log(table(sqlutil.formatData(res.metaData, res.rows)));
                                                                     conn.execute('SELECT * FROM STAVKAPONUDE WHERE SIFRA=1222',
                                                                         (err, res) => {
                                                                             if (err) {
                                                                                 console.error(err.message);
-                                                                                sqlutil.release(conn);
+                                                                                sqlutil.base.releaseConnection(conn);
                                                                             } else {
                                                                                 console.log(table(sqlutil.formatData(res.metaData, res.rows)));
                                                                                 conn.execute("UPDATE STAVKAPONUDE SET NASLOV = 'APR' WHERE SIFRA=1222",
                                                                                     (err, res) => {
                                                                                         if (err) {
                                                                                             console.log(err.message);
-                                                                                            sqlutil.release(conn);
+                                                                                            sqlutil.base.releaseConnection(conn);
                                                                                         } else {
                                                                                             console.log(table(sqlutil.formatData(res.metaData, res.rows)));
-                                                                                            sqlutil.release(conn);
+                                                                                            sqlutil.base.releaseConnection(conn);
                                                                                         }
                                                                                     });
                                                                             }

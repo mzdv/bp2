@@ -9,7 +9,6 @@ let sqlutil = require('../sqlutil');
 
 let statements = {
     selectOne: function () {
-
         let rl = readline.createInterface({
             input: process.stdin
         });

@@ -11,15 +11,73 @@ let menuTree = [
         }
     },
     {
-        name: 'Denormalizacija 2NF',
-        activate: query.denormalization2NF
+        name: 'Ponuda i StavkaPonude',
+        submenu: function () {
+            let appOptions = menu('Izaberite opciju', (option) => {
+                option.performAction();
+            });
+
+            menuTree[1].operations.forEach((binding) => {
+                appOptions.add(binding);
+            });
+        },
+        operations: [
+            {
+                name: 'Kreiraj novu Ponuda',
+                performAction: query.denormalization2NF.stavkaPonude.ponuda.create,
+            },
+            {
+                name: 'Izvuci sve Ponuda',
+                performAction: query.denormalization2NF.ponuda.selectAll,
+            },
+            {
+                name: 'Izvuci sve StavkaPonude koje pripadaju Ponuda',
+                performAction: query.denormalization2NF.ponuda.selectAllStavkaPonuda
+            },
+            {
+                name: 'Izvuci jednu Ponuda',
+                performAction: query.denormalization2NF.ponuda.selectOne,
+            },
+            {
+                name: 'Obrisi sve Ponuda',
+                performAction: query.denormalization2NF.ponuda.deleteAll,
+            },
+            {
+                name: 'Obrisi jedan Ponuda',
+                performAction: query.denormalization2NF.ponuda.deleteOne,
+            },
+            {
+                name: 'Kreiraj novu Ponuda',
+                performAction: query.denormalization2NF.ponuda.create,
+            },
+            {
+                name: 'Izvuci sve StavkaPonude',
+                performAction: query.denormalization2NF.stavkaPonude.selectAll,
+            },
+            {
+                name: 'Izvuci sve StavkaPonude koje pripadaju Ponuda',
+                performAction: query.denormalization2NF.stavkaPonude.selectAllPonuda,
+            },
+            {
+                name: 'Izvuci jednu StavkaPonude',
+                performAction: query.denormalization2NF.stavkaPonude.selectOne,
+            },
+            {
+                name: 'Obrisi sve StavkaPonude',
+                performAction: query.denormalization2NF.stavkaPonude.deleteAll,
+            },
+            {
+                name: 'Obrisi jedan StavkaPonude',
+                performAction: query.denormalization2NF.stavkaPonude.deleteOne,
+            }
+        ]
     },
     {
         name: 'Denormalizacija 3NF',
         activate: query.denormalization3NF
     },
     {
-        name: 'Carinski dokument',
+        name: 'CarinskiDokument',
         submenu: function () {
             let appOptions = menu('Izaberite opciju', (option) => {
                 option.performAction();
@@ -47,12 +105,8 @@ let menuTree = [
                 performAction: query.structuredType.deleteAll,
             },
             {
-                name: 'Obrisi jedan CarinskiDokumenti',
+                name: 'Obrisi jedan CarinskiDokument',
                 performAction: query.structuredType.deleteOne,
-            },
-            {
-                name: 'Izvuci sve CarinskeDokumente',
-                performAction: query.structuredType.selectAll,
             },
             {
                 name: 'Izmeni CarinskiDokument',

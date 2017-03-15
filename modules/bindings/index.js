@@ -21,16 +21,8 @@ module.exports = [
         activate: query.structuredType
     },
     {
-        name: 'Distinct tip',
-        activate: query.distinctType
-    },
-    {
         name: 'Izvedene vrednosti',
         activate: query.derivableValues
-    },
-    {
-        name: 'Vertikalno particionisanje',
-        activate: query.verticalPartitioning
     },
     {
         name: 'Sanity check',

@@ -4,7 +4,7 @@ let oracledb = require('oracledb');
 let { table } = require('table');
 
 let dbconf = require('../dbconf');
-let simpleQueries = require('../parametrizedQueries');
+let parametrizedQueries = require('../parametrizedQueries');
 let sqlutil = require('../sqlutil');
 
 let statements = {
@@ -24,7 +24,7 @@ let statements = {
                     console.error(err.message);
                     return;
                 } else {
-                    conn.execute(simpleQueries.structuredType.selectOne, [resultData[0]],
+                    conn.execute(parametrizedQueries.structuredType.selectOne, [resultData[0]],
                         (err, res) => {
                             if (err) {
                                 console.error(err.message);
@@ -32,19 +32,19 @@ let statements = {
                                 return;
                             } else {
                                 resultData.push(res.rows[0][0]);
-                                conn.execute(simpleQueries.structuredType.serialNumber.selectOne, [resultData[0]], (err, res) => {
+                                conn.execute(parametrizedQueries.structuredType.serialNumber.selectOne, [resultData[0]], (err, res) => {
                                     if (err) {
                                         console.error(err.message);
                                         sqlutil.base.releaseConnection(conn);
                                     } else {
                                         resultData.push(res.rows[0][0]);
-                                        conn.execute(simpleQueries.structuredType.laboratory.selectOne, [resultData[0]], (err, res) => {
+                                        conn.execute(parametrizedQueries.structuredType.laboratory.selectOne, [resultData[0]], (err, res) => {
                                             if (err) {
                                                 console.error(err.message);
                                                 sqlutil.base.releaseConnection(conn);
                                             } else {
                                                 resultData.push(res.rows[0][0]);
-                                                conn.execute(simpleQueries.structuredType.content.selectOne, [resultData[0]], (err, res) => {
+                                                conn.execute(parametrizedQueries.structuredType.content.selectOne, [resultData[0]], (err, res) => {
                                                     if (err) {
                                                         console.error(err.message);
                                                         sqlutil.base.releaseConnection(conn);
@@ -73,7 +73,7 @@ let statements = {
                 console.error(err.message);
                 return;
             } else {
-                conn.execute(simpleQueries.structuredType.selectAll,
+                conn.execute(parametrizedQueries.structuredType.selectAll,
                     (err, res) => {
                         if (err) {
                             console.error(err.message);
@@ -81,19 +81,19 @@ let statements = {
                             return;
                         } else {
                             resultData.push(res.rows[0]);
-                            conn.execute(simpleQueries.structuredType.serialNumber.selectAll, (err, res) => {
+                            conn.execute(parametrizedQueries.structuredType.serialNumber.selectAll, (err, res) => {
                                 if (err) {
                                     console.error(err.message);
                                     sqlutil.base.releaseConnection(conn);
                                 } else {
                                     resultData.push(res.rows[0]);
-                                    conn.execute(simpleQueries.structuredType.laboratory.selectAll, (err, res) => {
+                                    conn.execute(parametrizedQueries.structuredType.laboratory.selectAll, (err, res) => {
                                         if (err) {
                                             console.error(err.message);
                                             sqlutil.base.releaseConnection(conn);
                                         } else {
                                             resultData.push(res.rows[0]);
-                                            conn.execute(simpleQueries.structuredType.content.selectAll, (err, res) => {
+                                            conn.execute(parametrizedQueries.structuredType.content.selectAll, (err, res) => {
                                                 if (err) {
                                                     console.error(err.message);
                                                     sqlutil.base.releaseConnection(conn);
@@ -124,7 +124,7 @@ let statements = {
             rl.close();
 
             sqlutil.transactions.modifyTable(
-                simpleQueries.structuredType.create,
+                parametrizedQueries.structuredType.create,
                 [+params[0], +params[1], params[2], params[3], params[4]],
                 (err, res) => {
                     if (err) {
@@ -147,7 +147,7 @@ let statements = {
             rl.close();
 
             sqlutil.transactions.modifyTable(
-                simpleQueries.structuredType.update,
+                parametrizedQueries.structuredType.update,
                 [params[0], +params[1], +params[2]],
                 (err, res) => {
                     if (err) {
@@ -169,7 +169,7 @@ let statements = {
             let id = +line;
 
             sqlutil.transactions.modifyTable(
-                simpleQueries.structuredType.deleteAll,
+                parametrizedQueries.structuredType.deleteAll,
                 [id],
                 (err, res) => {
                     if (err) {
@@ -182,7 +182,7 @@ let statements = {
     },
     deleteAll: function () {
         sqlutil.transactions.modifyTable(
-            simpleQueries.structuredType.deleteAll,
+            parametrizedQueries.structuredType.deleteAll,
             (err, res) => {
                 if (err) {
                     console.error(err);

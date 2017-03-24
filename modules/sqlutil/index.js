@@ -1,7 +1,8 @@
 let oracledb = require('oracledb');
 let dbconf = require('../dbconf');
+let table = require('table');
 
-let sqlutil = {
+module.exports = {
     base: {
         releaseConnection: function (connection) {
             connection.close(
@@ -31,10 +32,10 @@ let sqlutil = {
                             (err, res) => {
                                 if (err) {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback(err.message);
+                                    callback(err.message, null);
                                 } else {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback('Tabela modifikovana');
+                                    callback(null, 'Tabela modifikovana');
                                 }
                             });
                     }
@@ -48,16 +49,34 @@ let sqlutil = {
                             (err, res) => {
                                 if (err) {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback(err.message);
+                                    callback(err.message, null);
                                 } else {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback('Tabela modifikovana');
+                                    callback(null, 'Tabela modifikovana');
                                 }
                             });
                     }
                 });
             }
 
-        }
+        },
+        readTable: function(query, callback) {
+            oracledb.getConnection(dbconf, (err, conn) => {
+                    if (err) {
+                        callback(err.message);
+                    } else {
+                        conn.execute(query,
+                            (err, res) => {
+                                if (err) {
+                                    sqlutil.base.releaseConnection(conn);
+                                    callback(err.message, null);
+                                } else {
+                                    sqlutil.base.releaseConnection(conn);
+                                    callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
+                                }
+                            });
+                    }
+                });
+        } 
     }
 }

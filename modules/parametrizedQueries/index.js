@@ -47,6 +47,6 @@ module.exports = {
 
     },
     sanityCheck: {
-        amIReal: ''
+        amIReal: 'SELECT "Sifra", "Ime" FROM "OdgovornoLice"'
     }
 };

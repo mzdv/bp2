@@ -5,6 +5,7 @@ module.exports = {
             selectOne: '',
             selectAllStavkaPonuda: '',
             create: '',
+            update: '',
             deleteOne: '',
             deleteAll: ''
         },
@@ -13,6 +14,7 @@ module.exports = {
             selectOne: '',
             selectAllPonuda: '',
             create: '',
+            update: '',
             deleteOne: '',
             deleteAll: ''
         }
@@ -20,12 +22,23 @@ module.exports = {
     denormalization3NF: {
         klijent: {
             selectAll: 'SELECT * FROM KLIJENT',
+            selectOne: '',
+            selectAllPonuda: '',
+            create: '',
+            update: '',
+            deleteOne: '',
+            deleteAll: ''
         },
         racun: {
             selectAll: 'SELECT * FROM RACUN',
-            update: 'UPDATE RACUN SET :column = :value WHERE SIFRA=:id'
+            selectOne: '',
+            selectAllPonuda: '',
+            create: '',
+            update: 'UPDATE RACUN SET :column = :value WHERE SIFRA=:id',
+            deleteOne: '',
+            deleteAll: ''
         },
-        service: {
+        triggers: {
             blockTriggerCompilation: 'ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE'
         }
     },
@@ -53,7 +66,13 @@ module.exports = {
         }
     },
     derivableValues: {
-
+        selectAll: 'SELECT * FROM KLIJENT',
+        selectOne: '',
+        selectAllPonuda: '',
+        create: '',
+        update: '',
+        deleteOne: '',
+        deleteAll: ''
     },
     sanityCheck: {
         amIReal: 'SELECT "Sifra", "Ime" FROM "OdgovornoLice"'

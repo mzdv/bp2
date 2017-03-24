@@ -1,7 +1,7 @@
 let oracledb = require('oracledb');
 let { table } = require('table');
 let dbconf = require('../dbconf');
-let sqlutil = require('./sqlutil');
+let sqlutil = require('../sqlutil');
 
 module.exports = function () {
     oracledb.getConnection(dbconf, (err, conn) => {

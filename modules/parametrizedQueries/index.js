@@ -1,4 +1,26 @@
 module.exports = {
+    denormalization2NF: {
+        ponuda: {
+            selectAll: '',
+            selectOne: '',
+            selectAllStavkaPonuda: '',
+            create: '',
+            deleteOne: '',
+            deleteAll: ''
+        },
+         stavkaPonude: {
+            selectAll: '',
+            selectOne: '',
+            selectAllPonuda: '',
+            create: '',
+            deleteOne: '',
+            deleteAll: ''
+        }
+    },
+    denormalization3NF: {
+        
+    },
+
     structuredType: {
         selectOne: 'SELECT "Datum" FROM "CarinskiDokument" WHERE "Sifra"=:id',
         selectAll: 'SELECT "Datum" FROM "CarinskiDokument"',
@@ -20,5 +42,11 @@ module.exports = {
                 selectOne: 'SELECT cd."Deklaracija".getSadrzaj() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
             }
         }
+    },
+    derivableValues: {
+
+    },
+    sanityCheck: {
+        amIReal: ''
     }
 };

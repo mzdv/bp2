@@ -8,7 +8,7 @@ module.exports = {
             deleteOne: '',
             deleteAll: ''
         },
-         stavkaPonude: {
+        stavkaPonude: {
             selectAll: '',
             selectOne: '',
             selectAllPonuda: '',
@@ -18,7 +18,16 @@ module.exports = {
         }
     },
     denormalization3NF: {
-        
+        klijent: {
+            selectAll: 'SELECT * FROM KLIJENT',
+        },
+        racun: {
+            selectAll: 'SELECT * FROM RACUN',
+            update: 'UPDATE RACUN SET :column = :value WHERE SIFRA=:id'
+        },
+        service: {
+            blockTriggerCompilation: 'ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE'
+        }
     },
 
     structuredType: {

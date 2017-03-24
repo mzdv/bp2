@@ -10,7 +10,7 @@ let menuTree = [
         }
     },
     {
-        name: 'Ponuda i StavkaPonude',
+        name: 'Ponude i stavke ponude',
         action: branching([
             {
                 name: 'Kreiraj novu ponudu',
@@ -63,8 +63,25 @@ let menuTree = [
         ])
     },
     {
-        name: 'Denormalizacija 3NF',
-        action: branching([]),
+        name: 'Klijenti i racuni',
+        action: branching([
+            {
+                name: 'Izvuci sve klijente',
+                action: query.denormalization3NF.klijent.selectAll
+            },
+            {
+                name: 'Izvuci sve racune',
+                action: query.denormalization3NF.racun.selectAll
+            },
+            {
+                name: 'Izmeni klijenta na racunu',
+                action: query.denormalization3NF.racun.update
+            },
+            {
+                name: 'Izmeni ime klijenta na racunu',
+                action: query.denormalization3NF.racun.update
+            }
+        ]),
     },
     {
         name: 'CarinskiDokument',

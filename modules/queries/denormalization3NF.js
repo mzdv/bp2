@@ -27,9 +27,9 @@ module.exports = function () {
                                 } else {
                                     console.log(table(sqlutil.base.formatData(res.metaData, res.rows)));
 
-                                    conn.execute('ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE', (err, res) => {
-                                        if (err) {
-                                            console.error(err.message);
+                                    conn.execute('ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE', (err, res) => {  // internal usage
+                                        if (err) {                                                          // queries are embedded    
+                                            console.error(err.message);                                     // inside the implementation
                                             sqlutil.base.releaseConnection(conn);
                                             return;
 

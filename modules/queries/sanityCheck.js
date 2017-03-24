@@ -7,7 +7,7 @@ let sqlutil = require('../sqlutil');
 
 let statements = {
     amIReal: function() {
-        sqlutil.transactions.readTable(
+        sqlutil.transactions.perform(
             parametrizedQueries.sanityCheck.amIReal,
             (err, res) => {
                 if (err) {

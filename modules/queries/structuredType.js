@@ -123,7 +123,7 @@ let statements = {
             let params = line.split(',');
             rl.close();
 
-            sqlutil.transactions.modifyTable(
+            sqlutil.transactions.perform(
                 parametrizedQueries.structuredType.create,
                 [+params[0], +params[1], params[2], params[3], params[4]],
                 (err, res) => {
@@ -146,7 +146,7 @@ let statements = {
             let params = line.split(',');
             rl.close();
 
-            sqlutil.transactions.modifyTable(
+            sqlutil.transactions.perform(
                 parametrizedQueries.structuredType.update,
                 [params[0], +params[1], +params[2]],
                 (err, res) => {
@@ -168,7 +168,7 @@ let statements = {
         rl.on('line', (line) => {
             let id = +line;
 
-            sqlutil.transactions.modifyTable(
+            sqlutil.transactions.perform(
                 parametrizedQueries.structuredType.deleteAll,
                 [id],
                 (err, res) => {
@@ -181,7 +181,7 @@ let statements = {
         });
     },
     deleteAll: function () {
-        sqlutil.transactions.modifyTable(
+        sqlutil.transactions.perform(
             parametrizedQueries.structuredType.deleteAll,
             (err, res) => {
                 if (err) {

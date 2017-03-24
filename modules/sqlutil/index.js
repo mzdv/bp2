@@ -22,7 +22,7 @@ module.exports = {
         }
     },
     transactions: {
-        modifyTable: function (query, params, callback) {
+        perform: function (query, params, callback) {
             if (typeof params === object) {
                 oracledb.getConnection(dbconf, (err, conn) => {
                     if (err) {
@@ -35,7 +35,11 @@ module.exports = {
                                     callback(err.message, null);
                                 } else {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback(null, 'Tabela modifikovana');
+                                    if (res.metaData.length > 1 && res.rows.length > 1) {
+                                        callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
+                                    } else {
+                                        callback(null, 'Tabela izmenjena');
+                                    }
                                 }
                             });
                     }
@@ -52,31 +56,17 @@ module.exports = {
                                     callback(err.message, null);
                                 } else {
                                     sqlutil.base.releaseConnection(conn);
-                                    callback(null, 'Tabela modifikovana');
+                                    if (res.metaData.length > 1 && res.rows.length > 1) {
+                                        callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
+                                    } else {
+                                        callback(null, 'Tabela izmenjena');
+                                    }
                                 }
                             });
                     }
                 });
             }
 
-        },
-        readTable: function(query, callback) {
-            oracledb.getConnection(dbconf, (err, conn) => {
-                    if (err) {
-                        callback(err.message);
-                    } else {
-                        conn.execute(query,
-                            (err, res) => {
-                                if (err) {
-                                    sqlutil.base.releaseConnection(conn);
-                                    callback(err.message, null);
-                                } else {
-                                    sqlutil.base.releaseConnection(conn);
-                                    callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
-                                }
-                            });
-                    }
-                });
-        } 
+        }
     }
 }

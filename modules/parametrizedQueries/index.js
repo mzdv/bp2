@@ -1,42 +1,40 @@
 module.exports = {
     denormalization2NF: {
         ponuda: {
-            selectAll: '',
-            selectOne: '',
-            selectAllStavkaPonuda: '',
-            create: '',
-            update: '',
-            deleteOne: '',
-            deleteAll: ''
+            selectAll: 'SELECT * FROM PONUDA',
+            selectOne: 'SELECT * FROM PONUDA WHERE SIFRA= :id',
+            selectAllStavkaPonuda: 'SELECT * FROM STAVKAPONUDE WHERE SIFRAPONUDE= :id',
+            create: 'INSERT INTO PONUDA VALUES(:sifra, :naslov, :datum)',
+            update: 'UPDATE PONUDA SET :column = :value WHERE SIFRA= :id',
+            deleteOne: 'DELETE FROM PONUDA WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE TABLE PONUDA'
         },
         stavkaPonude: {
-            selectAll: '',
-            selectOne: '',
-            selectAllPonuda: '',
-            create: '',
-            update: '',
-            deleteOne: '',
-            deleteAll: ''
+            selectAll: 'SELECT * FROM STAVKAPONUDE',
+            selectOne: 'SELECT * FROM STAVKAPONUDE WHERE SIFRA= :id',
+            create: 'INSERT INTO STAVKAPONUDE VALUES(:sifra, :opis, :sifrausluge, :naslov)',
+            update: 'UPDATE STAVKAPONUDE SET :column = :value WHERE SIFRA= :id',
+            deleteOne: 'DELETE FROM STAVKAPONUDE WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE TABLE STAVKAPONUDE'
         }
     },
     denormalization3NF: {
         klijent: {
             selectAll: 'SELECT * FROM KLIJENT',
-            selectOne: '',
-            selectAllPonuda: '',
-            create: '',
-            update: '',
-            deleteOne: '',
-            deleteAll: ''
+            selectOne: 'SELECT * FROM KLIJENT WHERE SIFRA= :id',
+            selectAllPonuda: 'SELECT * FROM RACUN WHERE SIFRAKLIJENTA= :id',
+            create: 'INSERT INTO KLIJENT VALUES(:sifra, :ime, :adresa, :status)',
+            update: 'UPDATE KLIJENT SET :column = :value WHERE SIFRA= :id',
+            deleteOne: 'DELETE FROM KLIJENT WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE TABLE KLIJENT'
         },
         racun: {
             selectAll: 'SELECT * FROM RACUN',
-            selectOne: '',
-            selectAllPonuda: '',
-            create: '',
+            selectOne: 'SELECT * FROM RACUN WHERE SIFRA= :id',
+            create: 'INSERT INTO RACUN VALUES(:sifra, :ime, :tekst, :datumizdavanja, :sifraklijenta)',
             update: 'UPDATE RACUN SET :column = :value WHERE SIFRA=:id',
-            deleteOne: '',
-            deleteAll: ''
+            deleteOne: 'DELETE FROM RACUN WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE FROM TABLE RACUN'
         },
         triggers: {
             blockTriggerCompilation: 'ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE'
@@ -44,8 +42,8 @@ module.exports = {
     },
 
     structuredType: {
-        selectOne: 'SELECT "Datum" FROM "CarinskiDokument" WHERE "Sifra"=:id',
-        selectAll: 'SELECT "Datum" FROM "CarinskiDokument"',
+        selectAll: 'SELECT * FROM "CarinskiDokument"',
+        selectOne: 'SELECT * FROM "CarinskiDokument" WHERE "Sifra"= :id',
         create: 'INSERT INTO "CarinskiDokument" VALUES (:sifra, "obj_deklaracija"(:serijskiBroj, :laboratorija, :sadrzaj), :datum)',
         update: 'UPDATE "CarinskiDokument" SET :column = :value WHERE "Sifra"=:id',
         deleteOne: 'DELETE FROM "CarinskiDokument" WHERE "Sifra"=:id',
@@ -66,13 +64,23 @@ module.exports = {
         }
     },
     derivableValues: {
-        selectAll: 'SELECT * FROM KLIJENT',
-        selectOne: '',
-        selectAllPonuda: '',
-        create: '',
-        update: '',
-        deleteOne: '',
-        deleteAll: ''
+        zahtevZaPonudu: {
+            selectAll: 'SELECT * FROM ZAHTEVZAPONUDU',
+            selectOne: 'SELECT * FROM ZAHTEVZAPONUDU WHERE SIFRA= :id',
+            zahtevZaPonuduZahtevi: 'SELECT * FROM STAVKAZAHTEVA WHERE SIFRAZAHTEVAZAPONUDU= :id',
+            create: 'INSERT INTO ZAHTEVZAPONUDU VALUES(:sifra, :naslov, :datum, null)',
+            update: 'UPDATE ZAHTEVZAPONUDU SET :column = :value WHERE SIFRA= :id',
+            deleteOne: 'DELETE FROM ZAHTEVZAPONUDU WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE TABLE ZAHTEVZAPONUDU'
+        },
+        stavkaZahteva: {
+            selectAll: 'SELECT * FROM STAVKAZAHTEVA',
+            selectOne: 'SELECT * FROM STAVKAZAHTEVA WHERE SIFRA= :id',
+            create: 'INSERT INTO STAVKAZAHTEVA VALUES(:sifra, :kolicin, :sifrauzahtevazaponudu)',
+            update: 'UPDATE STAVKAZAHTEVA SET :column = :value WHERE SIFRA= :id',
+            deleteOne: 'DELETE FROM STAVKAZAHTEVA WHERE SIFRA= :id',
+            deleteAll: 'TRUNCATE TABLE STAVKAZAHTEVA'
+        }
     },
     sanityCheck: {
         amIReal: 'SELECT "Sifra", "Ime" FROM "OdgovornoLice"'

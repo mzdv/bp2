@@ -53,10 +53,6 @@ let menuTree = [
                 action: query.denormalization2NF.stavkaPonude.selectAll,
             },
             {
-                name: 'Izvuci sve ponude koje pripadaju stavki ponude',
-                action: query.denormalization2NF.stavkaPonude.selectAllPonuda,
-            },
-            {
                 name: 'Izvuci jednu stavku ponude',
                 action: query.denormalization2NF.stavkaPonude.selectOne,
             },

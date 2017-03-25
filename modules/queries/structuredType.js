@@ -125,7 +125,7 @@ let statements = {
 
             sqlutil.transactions.perform(
                 parametrizedQueries.structuredType.create,
-                [+params[0], +params[1], params[2], params[3], params[4]],
+                [+params[0], +params[1], params[2], params[3], Date(params[4])],
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -145,6 +145,10 @@ let statements = {
         rl.on('line', (line) => {
             let params = line.split(',');
             rl.close();
+
+            if(params[0] === 'datum') {
+                params[1] = Date(params[1]);
+            }
 
             sqlutil.transactions.perform(
                 parametrizedQueries.structuredType.update,

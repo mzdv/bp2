@@ -25,7 +25,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite sifra,naslov,datum sa zarezima:\n');
+            console.log('Unesite sifra,naslov,datum sa zarezima:');
 
             rl.on('line', (line) => {
                 let params = line.split(',');
@@ -50,6 +50,21 @@ let statements = {
                 *   required database type.
                 */
 
+                /*
+                *   Furthermore, the facilities used to provide the arguments
+                *   to the database layer need to be abstracted, so that the
+                *   argument gathering logic (if it exists) isn't placed in the
+                *   database abstraction layer (the name for this pseudo ORM
+                *   since I cannot think of anything more creative).
+                *
+                *   My first idea of the improvement would be to pass a function
+                *   which handles argument collection to the DAL which would
+                *   be run to get the arguments. Arguments would be provided by
+                *   passing an anonymous function which would either return
+                *   fixed values or run an util function to perform collection 
+                *   of arguments
+                */
+
                 sqlutil.transactions.perform(
                     parametrizedQueries.denormalization2NF.ponuda.create,
                     [+params[0], params[1], Date(params[2])],
@@ -69,16 +84,21 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite column,value,id sa zarezima:\n');
+            console.log('Unesite column,value,id sa zarezima:');
 
             rl.on('line', (line) => {
                 let params = line.split(',');
                 rl.close();
 
+                /*
+                *   Might be some issues concerning the parsing of the argument
+                *   determined by the column data type. The database will return
+                *   an error if things go wrong, so that is an effective
+                *   solution for the time being
+                */
+
                 if (params[0] === 'datum') {
                     params[1] = Date(params[1]);
-                } else {
-                    params[1] = +params[1];
                 }
 
                 sqlutil.transactions.perform(
@@ -109,7 +129,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite id:\n');
+            console.log('Unesite id:');
 
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization2NF.ponuda.selectOne,
@@ -127,7 +147,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite sifraPonude:\n');
+            console.log('Unesite sifraPonude:');
 
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization2NF.ponuda.selectAllStavkaPonuda,
@@ -156,7 +176,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite id:\n');
+            console.log('Unesite id:');
 
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization2NF.ponuda.deleteOne,
@@ -178,7 +198,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite sifra,opis,sifrausluge,naslov sa zarezima:\n');
+            console.log('Unesite sifra,opis,sifrausluge,naslov sa zarezima:');
 
             rl.on('line', (line) => {
                 let params = line.split(',');
@@ -203,7 +223,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite column,value,id sa zarezima:\n');
+            console.log('Unesite column,value,id sa zarezima:');
 
             rl.on('line', (line) => {
                 let params = line.split(',');
@@ -211,8 +231,6 @@ let statements = {
 
                 if (params[0] === 'datum') {
                     params[1] = Date(params[1]);
-                } else {
-                    params[1] = +params[1];
                 }
 
                 sqlutil.transactions.perform(
@@ -243,7 +261,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite id:\n');
+            console.log('Unesite id:');
 
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization3NF.ponuda.selectOne,
@@ -272,7 +290,7 @@ let statements = {
                 input: process.stdin
             });
 
-            console.log('Unesite id:\n');
+            console.log('Unesite id:');
 
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization3NF.ponuda.deleteOne,

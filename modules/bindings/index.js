@@ -110,10 +110,6 @@ let menuTree = [
                 action: query.denormalization3NF.racun.selectAll
             },
             {
-                name: 'Izvuci sve klijente koji pripadaju racunu',
-                action: query.denormalization3NF.racun.selectAllKlijent
-            },
-            {
                 name: 'Izvuci jedan racun',
                 action: query.denormalization3NF.racun.selectOne,
             },

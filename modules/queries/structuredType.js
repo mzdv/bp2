@@ -13,11 +13,19 @@ let statements = {
             input: process.stdin
         });
 
-        console.log('Unesite id:\n');
+        console.log('Unesite id:');
 
         rl.on('line', (line) => {
             resultData.push(+line);
             rl.close();
+
+            /*
+            *   This part below is very ugly. I don't like it, but it is a 
+            *   necessity at this point. It can be refactored with multiple
+            *   calls to the database in sequence (even parallel calls might
+            *   work since they're all read operations).
+            *   The same applies for selectAll beneath this function.
+            */
 
             oracledb.getConnection(dbconf, (err, conn) => {
                 if (err) {
@@ -112,12 +120,12 @@ let statements = {
             }
         });
     },
-    create: function (sifra, serijskiBroj, laboratorija, sadrzaj, datum) {
+    create: function () {
         let rl = readline.createInterface({
             input: process.stdin
         });
 
-        console.log('Unesite sifra,serijskiBroj,laboratorija,sadrzaj,datum sa zarezima:\n');
+        console.log('Unesite sifra,serijskiBroj,laboratorija,sadrzaj,datum sa zarezima:');
 
         rl.on('line', (line) => {
             let params = line.split(',');
@@ -135,12 +143,12 @@ let statements = {
                 });
         });
     },
-    update: function (column, value, id) {
+    update: function () {
         let rl = readline.createInterface({
             input: process.stdin
         });
 
-        console.log('Unesite column,value,id sa zarezima:\n');
+        console.log('Unesite column,value,id sa zarezima:');
 
         rl.on('line', (line) => {
             let params = line.split(',');
@@ -162,12 +170,12 @@ let statements = {
                 });
         });
     },
-    deleteOne: function (id) {
+    deleteOne: function () {
         let rl = readline.createInterface({
             input: process.stdin
         });
 
-        console.log('Unesite id:\n');
+        console.log('Unesite id:');
 
         rl.on('line', (line) => {
             let id = +line;

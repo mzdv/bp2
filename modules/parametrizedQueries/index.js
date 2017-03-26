@@ -16,6 +16,9 @@ module.exports = {
             update: 'UPDATE STAVKAPONUDE SET :column = :value WHERE SIFRA= :id',
             deleteOne: 'DELETE FROM STAVKAPONUDE WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE TABLE STAVKAPONUDE'
+        },
+        triggers: {
+            afterUpdateTriggerCompilation: 'ALTER TRIGGER PONUDA_AU COMPILE'
         }
     },
     denormalization3NF: {

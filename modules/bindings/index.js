@@ -46,7 +46,7 @@ let menuTree = [
             },
             {
                 name: 'Izmeni stavku ponude',
-                action: query.denormalization2NF.ponuda.update
+                action: query.denormalization2NF.stavkaPonude.update
             },
             {
                 name: 'Izvuci sve stavke ponude',

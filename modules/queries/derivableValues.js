@@ -153,7 +153,7 @@ let statements = {
             });
         }
     },
-    racun: {
+    stavkaZahteva: {
         create: function () {
 
             let rl = readline.createInterface({

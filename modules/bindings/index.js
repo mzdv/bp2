@@ -11,7 +11,8 @@ let menuTree = [
     },
     {
         name: 'Ponude i stavke ponude',
-        action: branching([
+        action: function() {
+            branching([
             {
                 name: 'Kreiraj novu ponudu',
                 action: query.denormalization2NF.ponuda.create,
@@ -64,7 +65,7 @@ let menuTree = [
                 name: 'Obrisi jednu stavku ponude',
                 action: query.denormalization2NF.stavkaPonude.deleteOne,
             }
-        ])
+        ]) }
     },
     {
         name: 'Klijenti i racuni',
@@ -130,7 +131,7 @@ let menuTree = [
                 name: 'Kreiraj novi carinski dokument',
                 action: query.structuredType.create,
             },
-                        {
+            {
                 name: 'Izmeni carinski dokument',
                 action: query.structuredType.update
             },
@@ -159,7 +160,7 @@ let menuTree = [
                 name: 'Kreiraj novi zahtev za ponudu',
                 action: query.derivableValues.zahtevZaPonudu.create,
             },
-                        {
+            {
                 name: 'Izmeni zahtev za ponudu',
                 action: query.derivableValues.zahtevZaPonudu.update
             },
@@ -187,7 +188,7 @@ let menuTree = [
                 name: 'Kreiraj novu stavku zahteva',
                 action: query.derivableValues.stavkaZahteva.create,
             },
-             {
+            {
                 name: 'Izmeni stavku zahteva',
                 action: query.derivableValues.stavkaZahteva.update
             },

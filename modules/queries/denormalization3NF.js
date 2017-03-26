@@ -20,7 +20,7 @@ let statements = {
     klijent: {
         create: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
-            
+
             let rl = readline.createInterface({
                 input: process.stdin
             });
@@ -90,16 +90,22 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.selectOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.klijent.selectOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         selectAllPonuda: function () {
             let rl = readline.createInterface({
@@ -108,16 +114,21 @@ let statements = {
 
             console.log('Unesite sifraKlijenta:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.selectAllPonuda,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.klijent.selectAllPonuda,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
@@ -137,22 +148,28 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.deleteOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.klijent.deleteOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         }
     },
     racun: {
-       create: function () {
+        create: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
-            
+
             let rl = readline.createInterface({
                 input: process.stdin
             });
@@ -222,16 +239,22 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.selectOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.klijent.selectOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
@@ -251,16 +274,22 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.deleteOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.klijent.deleteOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         }
     }
 };

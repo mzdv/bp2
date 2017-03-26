@@ -20,7 +20,7 @@ let statements = {
     ponuda: {
         create: function () {
             rearmTriggers(parametrizedQueries.denormalization2NF.triggers.afterUpdateTriggerCompilation);
-            
+
             let rl = readline.createInterface({
                 input: process.stdin
             });
@@ -38,7 +38,7 @@ let statements = {
                 *   readable code. The example is above in the rearmTriggers
                 *   function which does that, but without parameters.
                 */
-                
+
                 /*
                 *   Addendum: because of the way Node.js handles callbacks
                 *   the code wouldn't benefit from an additional layer of
@@ -131,16 +131,22 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization2NF.ponuda.selectOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization2NF.ponuda.selectOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         selectAllStavkaPonuda: function () {
             let rl = readline.createInterface({
@@ -149,16 +155,22 @@ let statements = {
 
             console.log('Unesite sifraPonude:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization2NF.ponuda.selectAllStavkaPonuda,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization2NF.ponuda.selectAllStavkaPonuda,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
@@ -178,22 +190,28 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization2NF.ponuda.deleteOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization2NF.ponuda.deleteOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         }
     },
     stavkaPonude: {
-       create: function () {
+        create: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.afterUpdateTriggerCompilation);
-            
+
             let rl = readline.createInterface({
                 input: process.stdin
             });
@@ -263,16 +281,22 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.ponuda.selectOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.ponuda.selectOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
@@ -292,16 +316,21 @@ let statements = {
 
             console.log('Unesite id:');
 
-            sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.ponuda.deleteOne,
-                [id],
-                (err, res) => {
-                    if (err) {
-                        console.error(err);
-                    } else {
-                        console.log(res);
-                    }
-                });
+
+            rl.on('line', (line) => {
+                let id = +line;
+                rl.close();
+                sqlutil.transactions.perform(
+                    parametrizedQueries.denormalization3NF.ponuda.deleteOne,
+                    [id],
+                    (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        } else {
+                            console.log(res);
+                        }
+                    });
+            });
         }
     }
 };

@@ -1,6 +1,6 @@
 let oracledb = require('oracledb');
 let dbconf = require('../dbconf');
-let table = require('table');
+let { table } = require('table');
 
 let sqlutil = {
     base: {
@@ -25,7 +25,7 @@ let sqlutil = {
 
 let transactions = {
     perform: function (query, params, callback) {
-        if (typeof params === 'object') {
+        if (params) {
             oracledb.getConnection(dbconf, (err, conn) => {
                 if (err) {
                     callback(err.message);
@@ -37,8 +37,9 @@ let transactions = {
                                 callback(err.message, null);
                             } else {
                                 sqlutil.base.releaseConnection(conn);
+
                                 if (res.metaData.length > 1 && res.rows.length > 1) {
-                                    callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
+                                    callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
                                 } else {
                                     callback(null, 'Tabela izmenjena');
                                 }
@@ -58,8 +59,9 @@ let transactions = {
                                 callback(err.message, null);
                             } else {
                                 sqlutil.base.releaseConnection(conn);
-                                if (res.metaData.length > 1 && res.rows.length > 1) {
-                                    callback(null, table(sqlutil.base.formatData(res.metaData, res.rows)));
+
+                                if (res.metaData.length > 0 && res.rows.length > 0) {
+                                    callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
                                 } else {
                                     callback(null, 'Tabela izmenjena');
                                 }

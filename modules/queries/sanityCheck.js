@@ -1,5 +1,4 @@
 let oracledb = require('oracledb');
-let { table } = require('table');
 
 let dbconf = require('../dbconf');
 let parametrizedQueries = require('../parametrizedQueries');
@@ -9,6 +8,7 @@ let statements = {
     amIReal: function() {
         sqlutil.transactions.perform(
             parametrizedQueries.sanityCheck.amIReal,
+            null,
             (err, res) => {
                 if (err) {
                     console.error(err);

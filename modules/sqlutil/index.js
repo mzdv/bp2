@@ -24,6 +24,9 @@ let sqlutil = {
             });
 
             return parsedData;
+        },
+        queryBuilder: function (firstPart, column, secondPart) {
+            return firstPart + column + secondPart;
         }
     }
 }

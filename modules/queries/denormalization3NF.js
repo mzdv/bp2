@@ -4,72 +4,63 @@ let dbconf = require('../dbconf');
 let sqlutil = require('../sqlutil');
 let parametrizedQueries = require('../parametrizedQueries');
 
-let rearmTriggers = function (trigger) {
+let rearmTriggers = function (trigger, callback) {
     sqlutil.transactions.perform(
         trigger,
+        null,
         (err, res) => {
             if (err) {
-                console.error(err);
+                callback(err, null);
             } else {
-                console.log(res);
+                callback(null, res);
             }
         });
 };
 
+let rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+});
+
 let statements = {
     klijent: {
         create: function () {
-            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
+            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                rl.question('Unesite sifra,ime,adresa,status sa zarezima: ', (line) => {
+                    let params = line.split(',');
+                    rl.close();
 
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite sifra,ime,adresa,status sa zarezima:');
-
-            rl.on('line', (line) => {
-                let params = line.split(',');
-                rl.close();
-
-                sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.klijent.create,
-                    [+params[0], params[1], params[2], params[3]],
-                    (err, res) => {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(res);
-                        }
-                    });
+                    sqlutil.transactions.perform(
+                        parametrizedQueries.denormalization3NF.klijent.create,
+                        [+params[0], params[1], params[2], params[3]],
+                        (err, res) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                console.log(res);
+                            }
+                        });
+                });
             });
         },
         update: function () {
-            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
+            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                rl.question('Unesite column,value,id sa zarezima: ', (line) => {
+                    let params = line.split(',');
+                    rl.close();
 
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite column,value,id sa zarezima:');
-
-            rl.on('line', (line) => {
-                let params = line.split(',');
-                rl.close();
-
-                if (params[0] === 'datum') {
-                    params[1] = Date(params[1]);
-                }
-
-                sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.klijent.update,
-                    [params[0], params[1], +params[2]],
-                    (err, res) => {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(res);
-                        }
-                    });
+                    sqlutil.transactions.perform(
+                        sqlutil.base.queryBuilder(parametrizedQueries.denormalization3NF.klijent.update.preColumn, params[0], parametrizedQueries.denormalization3NF.klijent.update.postColumn),
+                        [params[1], +params[2]],
+                        (err, res) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                console.log(res);
+                            }
+                        });
+                });
             });
         },
         selectAll: function () {
@@ -84,14 +75,7 @@ let statements = {
                 });
         },
         selectOne: function () {
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite id:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -108,14 +92,7 @@ let statements = {
             });
         },
         selectAllPonuda: function () {
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite sifraKlijenta:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite sifraKlijenta: ', (line) => {
                 let id = +line;
                 rl.close();
                 sqlutil.transactions.perform(
@@ -142,14 +119,7 @@ let statements = {
                 });
         },
         deleteOne: function () {
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite id:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -168,57 +138,45 @@ let statements = {
     },
     racun: {
         create: function () {
-            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
+            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                rl.question('Unesite sifra,ime,tekst,datuimzdavanja,sifraklijenta sa zarezima: ', (line) => {
+                    let params = line.split(',');
+                    rl.close();
 
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite sifra,ime,tekst,datuimzdavanja,sifraklijenta sa zarezima:');
-
-            rl.on('line', (line) => {
-                let params = line.split(',');
-                rl.close();
-
-                sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.klijent.create,
-                    [+params[0], params[1], params[2], Date(params[3]), +params[3]],
-                    (err, res) => {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(res);
-                        }
-                    });
+                    sqlutil.transactions.perform(
+                        parametrizedQueries.denormalization3NF.klijent.create,
+                        [+params[0], params[1], params[2], Date(params[3]), +params[3]],
+                        (err, res) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                console.log(res);
+                            }
+                        });
+                });
             });
         },
         update: function () {
-            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation);
+            rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                rl.question('Unesite column,value,id sa zarezima:', (line) => {
+                    let params = line.split(',');
+                    rl.close();
 
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
+                    if (params[0] === 'datum') {
+                        params[1] = new Date(Date(params[1]));
+                    }
 
-            console.log('Unesite column,value,id sa zarezima:');
-
-            rl.on('line', (line) => {
-                let params = line.split(',');
-                rl.close();
-
-                if (params[0] === 'datum') {
-                    params[1] = Date(params[1]);
-                }
-
-                sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.racun.update,
-                    [params[0], params[1], +params[2]],
-                    (err, res) => {
-                        if (err) {
-                            console.error(err);
-                        } else {
-                            console.log(res);
-                        }
-                    });
+                    sqlutil.transactions.perform(
+                        sqlutil.base.queryBuilder(parametrizedQueries.denormalization3NF.racun.update.preColumn, params[0], parametrizedQueries.denormalization3NF.racun.update.postColumn),
+                        [params[0], params[1], +params[2]],
+                        (err, res) => {
+                            if (err) {
+                                console.error(err);
+                            } else {
+                                console.log(res);
+                            }
+                        });
+                });
             });
         },
         selectAll: function () {
@@ -233,14 +191,7 @@ let statements = {
                 });
         },
         selectOne: function () {
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite id:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -268,14 +219,7 @@ let statements = {
                 });
         },
         deleteOne: function () {
-            let rl = readline.createInterface({
-                input: process.stdin
-            });
-
-            console.log('Unesite id:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 

@@ -33,7 +33,10 @@ module.exports = {
             selectOne: 'SELECT * FROM KLIJENT WHERE SIFRA= :id',
             selectAllPonuda: 'SELECT * FROM RACUN WHERE SIFRAKLIJENTA= :id',
             create: 'INSERT INTO KLIJENT VALUES(:sifra, :ime, :adresa, :status)',
-            update: 'UPDATE KLIJENT SET :column = :value WHERE SIFRA= :id',
+            update: {
+                preColumn: 'UPDATE KLIJENT SET ',
+                postColumn: '= :value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM KLIJENT WHERE SIFRA= :id',
             deleteAll: 'DELETE KLIJENT'
         },

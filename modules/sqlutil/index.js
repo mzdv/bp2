@@ -13,12 +13,17 @@ let sqlutil = {
                 });
         },
         formatDataFromDb: function (header, rows) {
-            let parsedHeader = header.map((data) => {
-                return data.name;
-            });
-            let parsedRows = rows[0] || [null];
+            let parsedData = [];
 
-            return [parsedHeader, parsedRows];
+            parsedData.push(header.map((data) => {
+                return data.name;
+            }));
+
+            rows.forEach(row => {
+                parsedData.push(row);
+            });
+
+            return parsedData;
         }
     }
 }
@@ -30,7 +35,7 @@ let transactions = {
                 if (err) {
                     callback(err.message);
                 } else {
-                    conn.execute(query, params,
+                    conn.execute(query, params, { autoCommit: true },
                         (err, res) => {
                             if (err) {
                                 sqlutil.base.releaseConnection(conn);
@@ -38,10 +43,14 @@ let transactions = {
                             } else {
                                 sqlutil.base.releaseConnection(conn);
 
-                                if (res.metaData.length > 1 && res.rows.length > 1) {
-                                    callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
+                                if (res.metaData && res.rows) {
+                                    if (res.metaData.length > 0 && res.rows.length > 0) {
+                                        callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
+                                    } else {
+                                        callback(null, 'Something might have gone wrong');
+                                    }
                                 } else {
-                                    callback(null, 'Tabela izmenjena');
+                                    callback(null, 'Table modified');
                                 }
                             }
                         });
@@ -60,11 +69,16 @@ let transactions = {
                             } else {
                                 sqlutil.base.releaseConnection(conn);
 
-                                if (res.metaData.length > 0 && res.rows.length > 0) {
-                                    callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
+                                if (res.metaData && res.rows) {
+                                    if (res.metaData.length > 0 && res.rows.length > 0) {
+                                        callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
+                                    } else {
+                                        callback(null, 'No data to show.');
+                                    }
                                 } else {
-                                    callback(null, 'Tabela izmenjena');
+                                    callback(null, 'Table modified.');
                                 }
+
                             }
                         });
                 }

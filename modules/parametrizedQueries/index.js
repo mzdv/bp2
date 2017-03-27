@@ -3,9 +3,12 @@ module.exports = {
         ponuda: {
             selectAll: 'SELECT * FROM PONUDA',
             selectOne: 'SELECT * FROM PONUDA WHERE SIFRA= :id',
-            selectAllStavkaPonuda: 'SELECT * FROM STAVKAPONUDE WHERE SIFRAPONUDE= :id',
+            selectAllStavkaPonuda: 'SELECT * FROM STAVKAPONUDE WHERE SIFRAUSLUGE=:id',
             create: 'INSERT INTO PONUDA VALUES(:sifra, :naslov, :datum)',
-            update: 'UPDATE PONUDA SET :column = :value WHERE SIFRA= :id',
+            update: {
+                preColumn: 'UPDATE PONUDA SET ',
+                postColumn: '=:value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM PONUDA WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE TABLE PONUDA'
         },
@@ -13,7 +16,10 @@ module.exports = {
             selectAll: 'SELECT * FROM STAVKAPONUDE',
             selectOne: 'SELECT * FROM STAVKAPONUDE WHERE SIFRA= :id',
             create: 'INSERT INTO STAVKAPONUDE VALUES(:sifra, :opis, :sifrausluge, :naslov)',
-            update: 'UPDATE STAVKAPONUDE SET :column = :value WHERE SIFRA= :id',
+            update: {
+                preColumn: 'UPDATE STAVKAPONUDE SET ',
+                postColumn: '=:value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM STAVKAPONUDE WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE TABLE STAVKAPONUDE'
         },
@@ -35,7 +41,10 @@ module.exports = {
             selectAll: 'SELECT * FROM RACUN',
             selectOne: 'SELECT * FROM RACUN WHERE SIFRA= :id',
             create: 'INSERT INTO RACUN VALUES(:sifra, :ime, :tekst, :datumizdavanja, :sifraklijenta)',
-            update: 'UPDATE RACUN SET :column = :value WHERE SIFRA=:id',
+            update: {
+                preColumn: 'UPDATE RACUN SET ',
+                postColumn: '=:value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM RACUN WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE FROM TABLE RACUN'
         },
@@ -48,7 +57,10 @@ module.exports = {
         selectAll: 'SELECT * FROM "CarinskiDokument"',
         selectOne: 'SELECT * FROM "CarinskiDokument" WHERE "Sifra"= :id',
         create: 'INSERT INTO "CarinskiDokument" VALUES (:sifra, "obj_deklaracija"(:serijskiBroj, :laboratorija, :sadrzaj), :datum)',
-        update: 'UPDATE "CarinskiDokument" SET :column = :value WHERE "Sifra"=:id',
+        update: {
+            preColumn: 'UPDATE "CarinskiDokument" SET ',
+            postColumn: '=:value WHERE "Sifra"=:id'
+        },
         deleteOne: 'DELETE FROM "CarinskiDokument" WHERE "Sifra"=:id',
         deleteAll: 'TRUNCATE TABLE "CarinskiDokument"',
         structuredType: {
@@ -73,6 +85,10 @@ module.exports = {
             zahtevZaPonuduZahtevi: 'SELECT * FROM STAVKAZAHTEVA WHERE SIFRAZAHTEVAZAPONUDU= :id',
             create: 'INSERT INTO ZAHTEVZAPONUDU VALUES(:sifra, :naslov, :datum, null)',
             update: 'UPDATE ZAHTEVZAPONUDU SET :column = :value WHERE SIFRA= :id',
+            update: {
+                preColumn: 'UPDATE ZAHTEVZAPONUDU SET ',
+                postColumn: '=:value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM ZAHTEVZAPONUDU WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE TABLE ZAHTEVZAPONUDU'
         },
@@ -80,7 +96,10 @@ module.exports = {
             selectAll: 'SELECT * FROM STAVKAZAHTEVA',
             selectOne: 'SELECT * FROM STAVKAZAHTEVA WHERE SIFRA= :id',
             create: 'INSERT INTO STAVKAZAHTEVA VALUES(:sifra, :kolicin, :sifrauzahtevazaponudu)',
-            update: 'UPDATE STAVKAZAHTEVA SET :column = :value WHERE SIFRA= :id',
+            update: {
+                preColumn: 'UPDATE STAVKAZAHTEVA SET ',
+                postColumn: '=:value WHERE SIFRA=:id'
+            },
             deleteOne: 'DELETE FROM STAVKAZAHTEVA WHERE SIFRA= :id',
             deleteAll: 'TRUNCATE TABLE STAVKAZAHTEVA'
         }

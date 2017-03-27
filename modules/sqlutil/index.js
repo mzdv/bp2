@@ -30,7 +30,37 @@ let sqlutil = {
 
 let transactions = {
     perform: function (query, params, callback) {
-        if (params) {
+        if (query.indexOf('DELETE') > -1 && typeof params === 'function') {
+            callback = params;
+
+            oracledb.getConnection(dbconf, (err, conn) => {
+                if (err) {
+                    callback(err.message);
+                } else {
+                    conn.execute(query, [], { autoCommit: true },
+                        (err, res) => {
+                            if (err) {
+                                console.log(err);
+                                sqlutil.base.releaseConnection(conn);
+                                callback(err.message, null);
+                            } else {
+                                sqlutil.base.releaseConnection(conn);
+
+                                if (res.metaData && res.rows) {
+                                    if (res.metaData.length > 0 && res.rows.length > 0) {
+                                        callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
+                                    } else {
+                                        callback(null, 'Something might have gone wrong.');
+                                    }
+                                } else {
+                                    callback(null, 'Table modified.');
+                                }
+                            }
+                        });
+                }
+            });
+        }
+        else if (params) {
             oracledb.getConnection(dbconf, (err, conn) => {
                 if (err) {
                     callback(err.message);
@@ -47,10 +77,10 @@ let transactions = {
                                     if (res.metaData.length > 0 && res.rows.length > 0) {
                                         callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
                                     } else {
-                                        callback(null, 'Something might have gone wrong');
+                                        callback(null, 'Something might have gone wrong.');
                                     }
                                 } else {
-                                    callback(null, 'Table modified');
+                                    callback(null, 'Table modified.');
                                 }
                             }
                         });

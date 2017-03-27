@@ -9,8 +9,8 @@ module.exports = {
                 preColumn: 'UPDATE PONUDA SET ',
                 postColumn: '=:value WHERE SIFRA=:id'
             },
-            deleteOne: 'DELETE FROM PONUDA WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE TABLE PONUDA'
+            deleteOne: 'DELETE FROM PONUDA WHERE SIFRA=:id',
+            deleteAll: 'DELETE PONUDA'
         },
         stavkaPonude: {
             selectAll: 'SELECT * FROM STAVKAPONUDE',
@@ -21,7 +21,7 @@ module.exports = {
                 postColumn: '=:value WHERE SIFRA=:id'
             },
             deleteOne: 'DELETE FROM STAVKAPONUDE WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE TABLE STAVKAPONUDE'
+            deleteAll: 'DELETE STAVKAPONUDE'
         },
         triggers: {
             afterUpdateTriggerCompilation: 'ALTER TRIGGER PONUDA_AU COMPILE'
@@ -35,7 +35,7 @@ module.exports = {
             create: 'INSERT INTO KLIJENT VALUES(:sifra, :ime, :adresa, :status)',
             update: 'UPDATE KLIJENT SET :column = :value WHERE SIFRA= :id',
             deleteOne: 'DELETE FROM KLIJENT WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE TABLE KLIJENT'
+            deleteAll: 'DELETE KLIJENT'
         },
         racun: {
             selectAll: 'SELECT * FROM RACUN',
@@ -46,7 +46,7 @@ module.exports = {
                 postColumn: '=:value WHERE SIFRA=:id'
             },
             deleteOne: 'DELETE FROM RACUN WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE FROM TABLE RACUN'
+            deleteAll: 'DELETE RACUN'
         },
         triggers: {
             blockTriggerCompilation: 'ALTER TRIGGER KLIJENT_BLOCK_BU COMPILE'
@@ -62,7 +62,7 @@ module.exports = {
             postColumn: '=:value WHERE "Sifra"=:id'
         },
         deleteOne: 'DELETE FROM "CarinskiDokument" WHERE "Sifra"=:id',
-        deleteAll: 'TRUNCATE TABLE "CarinskiDokument"',
+        deleteAll: 'DELETE "CarinskiDokument"',
         structuredType: {
             serialNumber: {
                 selectAll: 'SELECT cd."Deklaracija".getSerijskiBroj() FROM "CarinskiDokument" cd',
@@ -90,7 +90,7 @@ module.exports = {
                 postColumn: '=:value WHERE SIFRA=:id'
             },
             deleteOne: 'DELETE FROM ZAHTEVZAPONUDU WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE TABLE ZAHTEVZAPONUDU'
+            deleteAll: 'DELETE ZAHTEVZAPONUDU'
         },
         stavkaZahteva: {
             selectAll: 'SELECT * FROM STAVKAZAHTEVA',
@@ -101,7 +101,7 @@ module.exports = {
                 postColumn: '=:value WHERE SIFRA=:id'
             },
             deleteOne: 'DELETE FROM STAVKAZAHTEVA WHERE SIFRA= :id',
-            deleteAll: 'TRUNCATE TABLE STAVKAZAHTEVA'
+            deleteAll: 'DELETE STAVKAZAHTEVA'
         }
     },
     sanityCheck: {

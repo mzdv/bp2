@@ -106,7 +106,11 @@ let statements = {
                         }
 
                         sqlutil.transactions.perform(
-                            sqlutil.base.queryBuilder(parametrizedQueries.denormalization2NF.ponuda.update.preColumn, params[0], parametrizedQueries.denormalization2NF.ponuda.update.postColumn),
+                            sqlutil.base.queryBuilder(
+                                parametrizedQueries.denormalization2NF.ponuda.update.preColumn,
+                                params[0],
+                                parametrizedQueries.denormalization2NF.ponuda.update.postColumn
+                            ),
                             [params[1], +params[2]],
                             (err, res) => {
                                 if (err) {
@@ -234,7 +238,11 @@ let statements = {
                         }
 
                         sqlutil.transactions.perform(
-                            sqlutil.base.queryBuilder(parametrizedQueries.denormalization2NF.stavkaPonude.update.preColumn, params[0], parametrizedQueries.denormalization2NF.stavkaPonude.update.postColumn),
+                            sqlutil.base.queryBuilder(
+                                parametrizedQueries.denormalization2NF.stavkaPonude.update.preColumn,
+                                params[0],
+                                parametrizedQueries.denormalization2NF.stavkaPonude.update.postColumn
+                            ),
                             [params[1], +params[2]],
                             (err, res) => {
                                 if (err) {

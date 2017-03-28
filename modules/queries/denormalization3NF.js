@@ -51,7 +51,11 @@ let statements = {
                     rl.close();
 
                     sqlutil.transactions.perform(
-                        sqlutil.base.queryBuilder(parametrizedQueries.denormalization3NF.klijent.update.preColumn, params[0], parametrizedQueries.denormalization3NF.klijent.update.postColumn),
+                        sqlutil.base.queryBuilder(
+                            parametrizedQueries.denormalization3NF.klijent.update.preColumn,
+                            params[0],
+                            parametrizedQueries.denormalization3NF.klijent.update.postColumn
+                        ),
                         [params[1], +params[2]],
                         (err, res) => {
                             if (err) {
@@ -167,7 +171,11 @@ let statements = {
                     }
 
                     sqlutil.transactions.perform(
-                        sqlutil.base.queryBuilder(parametrizedQueries.denormalization3NF.racun.update.preColumn, params[0], parametrizedQueries.denormalization3NF.racun.update.postColumn),
+                        sqlutil.base.queryBuilder(
+                            parametrizedQueries.denormalization3NF.racun.update.preColumn,
+                            params[0],
+                            parametrizedQueries.denormalization3NF.racun.update.postColumn
+                        ),
                         [params[0], params[1], +params[2]],
                         (err, res) => {
                             if (err) {

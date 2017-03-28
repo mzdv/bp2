@@ -102,10 +102,10 @@ let menuTree = [
                 },
                 {
                     name: 'Kreiraj novi racun',
-                    action: query.denormalization3NF.klijent.create,
+                    action: query.denormalization3NF.racun.create,
                 },
                 {
-                    name: 'Izmeni klijenta na racunu',
+                    name: 'Izmeni racun',
                     action: query.denormalization3NF.racun.update
                 },
                 {

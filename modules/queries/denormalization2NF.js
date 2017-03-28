@@ -17,12 +17,6 @@ let rearmTriggers = function (trigger, callback) {
         });
 };
 
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false
-});
-
 let statements = {
     ponuda: {
         create: function () {
@@ -32,6 +26,11 @@ let statements = {
                 } else {
                     console.log(res);
 
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout,
+                        terminal: false
+                    });
                     rl.question('Unesite sifra,naslov,datum sa zarezima:', (line) => {
                         let params = line.split(',');
                         rl.close();
@@ -90,6 +89,12 @@ let statements = {
                 } else {
                     console.log(res);
 
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout,
+                        terminal: false
+                    });
+
                     rl.question('Unesite column,value,id sa zarezima:', (line) => {
                         let params = line.split(',');
                         rl.close();
@@ -138,6 +143,12 @@ let statements = {
                 });
         },
         selectOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -155,6 +166,12 @@ let statements = {
             });
         },
         selectAllStavkaPonuda: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite sifraPonude: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -183,6 +200,12 @@ let statements = {
                 });
         },
         deleteOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -206,6 +229,12 @@ let statements = {
                 if (err) {
                     console.log(err);
                 } else {
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout,
+                        terminal: false
+                    });
+
                     rl.question('Unesite sifra,opis,sifrausluge,naslov sa zarezima: ', (line) => {
                         let params = line.split(',');
                         rl.close();
@@ -225,10 +254,17 @@ let statements = {
             });
         },
         update: function () {
+
             rearmTriggers(parametrizedQueries.denormalization2NF.triggers.afterUpdateTriggerCompilation, (err, res) => {
                 if (err) {
                     console.error(err);
                 } else {
+                    let rl = readline.createInterface({
+                        input: process.stdin,
+                        output: process.stdout,
+                        terminal: false
+                    });
+
                     rl.question('Unesite column,value,id sa zarezima: ', (line) => {
                         let params = line.split(',');
                         rl.close();
@@ -268,6 +304,12 @@ let statements = {
                 });
         },
         selectOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -308,6 +350,12 @@ let statements = {
                 });
         },
         deleteOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();

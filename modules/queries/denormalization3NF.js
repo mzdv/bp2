@@ -17,16 +17,16 @@ let rearmTriggers = function (trigger, callback) {
         });
 };
 
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false
-});
-
 let statements = {
     klijent: {
         create: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                let rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout,
+                    terminal: false
+                });
+
                 rl.question('Unesite sifra,ime,adresa,status sa zarezima: ', (line) => {
                     let params = line.split(',');
                     rl.close();
@@ -46,6 +46,12 @@ let statements = {
         },
         update: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                let rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout,
+                    terminal: false
+                });
+
                 rl.question('Unesite column,value,id sa zarezima: ', (line) => {
                     let params = line.split(',');
                     rl.close();
@@ -70,6 +76,7 @@ let statements = {
         selectAll: function () {
             sqlutil.transactions.perform(
                 parametrizedQueries.denormalization3NF.klijent.selectAll,
+                null,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -79,6 +86,12 @@ let statements = {
                 });
         },
         selectOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -95,7 +108,13 @@ let statements = {
                     });
             });
         },
-        selectAllPonuda: function () {
+        selectAllRacuni: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite sifraKlijenta: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -123,6 +142,12 @@ let statements = {
                 });
         },
         deleteOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
@@ -143,13 +168,19 @@ let statements = {
     racun: {
         create: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                let rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout,
+                    terminal: false
+                });
+
                 rl.question('Unesite sifra,ime,tekst,datuimzdavanja,sifraklijenta sa zarezima: ', (line) => {
                     let params = line.split(',');
                     rl.close();
 
                     sqlutil.transactions.perform(
-                        parametrizedQueries.denormalization3NF.klijent.create,
-                        [+params[0], params[1], params[2], Date(params[3]), +params[3]],
+                        parametrizedQueries.denormalization3NF.racun.create,
+                        [+params[0], params[1], params[2], new Date(Date(params[3])), +params[3]],
                         (err, res) => {
                             if (err) {
                                 console.error(err);
@@ -162,6 +193,12 @@ let statements = {
         },
         update: function () {
             rearmTriggers(parametrizedQueries.denormalization3NF.triggers.blockTriggerCompilation, (err, res) => {
+                let rl = readline.createInterface({
+                    input: process.stdin,
+                    output: process.stdout,
+                    terminal: false
+                });
+
                 rl.question('Unesite column,value,id sa zarezima:', (line) => {
                     let params = line.split(',');
                     rl.close();
@@ -176,7 +213,7 @@ let statements = {
                             params[0],
                             parametrizedQueries.denormalization3NF.racun.update.postColumn
                         ),
-                        [params[0], params[1], +params[2]],
+                        [params[1], +params[2]],
                         (err, res) => {
                             if (err) {
                                 console.error(err);
@@ -189,7 +226,8 @@ let statements = {
         },
         selectAll: function () {
             sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.selectAll,
+                parametrizedQueries.denormalization3NF.racun.selectAll,
+                null,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -199,12 +237,18 @@ let statements = {
                 });
         },
         selectOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id: ', (line) => {
                 let id = +line;
                 rl.close();
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.klijent.selectOne,
+                    parametrizedQueries.denormalization3NF.racun.selectOne,
                     [id],
                     (err, res) => {
                         if (err) {
@@ -217,7 +261,7 @@ let statements = {
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
-                parametrizedQueries.denormalization3NF.klijent.deleteAll,
+                parametrizedQueries.denormalization3NF.racun.deleteAll,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -227,12 +271,18 @@ let statements = {
                 });
         },
         deleteOne: function () {
+            let rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
+            });
+
             rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.denormalization3NF.klijent.deleteOne,
+                    parametrizedQueries.denormalization3NF.racun.deleteOne,
                     [id],
                     (err, res) => {
                         if (err) {

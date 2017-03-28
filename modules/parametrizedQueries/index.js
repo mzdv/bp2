@@ -35,7 +35,7 @@ module.exports = {
             create: 'INSERT INTO KLIJENT VALUES(:sifra, :ime, :adresa, :status)',
             update: {
                 preColumn: 'UPDATE KLIJENT SET ',
-                postColumn: '= :value WHERE SIFRA=:id'
+                postColumn: '=:value WHERE SIFRA=:id'
             },
             deleteOne: 'DELETE FROM KLIJENT WHERE SIFRA= :id',
             deleteAll: 'DELETE KLIJENT'

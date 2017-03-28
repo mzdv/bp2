@@ -79,7 +79,7 @@ let transactions = {
                                     if (res.metaData.length > 0 && res.rows.length > 0) {
                                         callback(null, table(sqlutil.base.formatDataFromDb(res.metaData, res.rows)));
                                     } else {
-                                        callback(null, 'Something might have gone wrong.');
+                                        callback(null, 'No data.');
                                     }
                                 } else {
                                     callback(null, 'Table modified.');

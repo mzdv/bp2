@@ -9,18 +9,18 @@ let statements = {
         create: function () {
 
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite sifra,naslov,datum sa zarezima:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite sifra,naslov,datum sa zarezima:', (line) => {
                 let params = line.split(',');
                 rl.close();
 
                 sqlutil.transactions.perform(
                     parametrizedQueries.derivableValues.zahtevZaPonudu.create,
-                    [+params[0], params[1], Date(params[2])],
+                    [+params[0], params[1], new Date(Date(params[2]))],
                     (err, res) => {
                         if (err) {
                             console.error(err);
@@ -31,24 +31,26 @@ let statements = {
             });
         },
         update: function () {
-
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite column,value,id sa zarezima:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite column,value,id sa zarezima:', (line) => {
                 let params = line.split(',');
                 rl.close();
 
                 if (params[0] === 'datum') {
-                    params[1] = Date(params[1]);
+                    params[1] = new Date(Date(params[1]));
                 }
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.derivableValues.zahtevZaPonudu.update,
-                    [params[0], params[1], +params[2]],
+                    sqlutil.base.queryBuilder(
+                        parametrizedQueries.derivableValues.zahtevZaPonudu.update.preColumn,
+                        params[0],
+                        parametrizedQueries.derivableValues.zahtevZaPonudu.update.postColumn),
+                    [params[1], +params[2]],
                     (err, res) => {
                         if (err) {
                             console.error(err);
@@ -61,6 +63,7 @@ let statements = {
         selectAll: function () {
             sqlutil.transactions.perform(
                 parametrizedQueries.derivableValues.zahtevZaPonudu.selectAll,
+                null,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -71,12 +74,12 @@ let statements = {
         },
         selectOne: function () {
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite id:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -95,13 +98,12 @@ let statements = {
         },
         zahtevZaPonuduZahtevi: function () {
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite sifruZahtevaZaPonudu:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite sifruZahtevaZaPonudu:', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -130,13 +132,12 @@ let statements = {
         },
         deleteOne: function () {
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite id:');
-
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 
@@ -155,19 +156,18 @@ let statements = {
     },
     stavkaZahteva: {
         create: function () {
-
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite sifra,kolicina,sifrazahtevZaPonudu sa zarezima:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite sifra,kolicina,sifrazahtevZaPonudu sa zarezima:', (line) => {
                 let params = line.split(',');
                 rl.close();
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.derivableValues.zahtevZaPonudu.create,
+                    parametrizedQueries.derivableValues.stavkaZahteva.create,
                     [+params[0], +params[1], +params[2]],
                     (err, res) => {
                         if (err) {
@@ -179,24 +179,26 @@ let statements = {
             });
         },
         update: function () {
-
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite column,value,id sa zarezima:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite column,value,id sa zarezima:', (line) => {
                 let params = line.split(',');
                 rl.close();
 
                 if (params[0] === 'datum') {
-                    params[1] = Date(params[1]);
+                    params[1] = new Date(Date(params[1]));
                 }
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.derivableValues.racun.update,
-                    [params[0], params[1], +params[2]],
+                    sqlutil.base.queryBuilder(
+                        parametrizedQueries.derivableValues.stavkaZahteva.update.preColumn,
+                        params[0],
+                        parametrizedQueries.derivableValues.stavkaZahteva.update.postColumn),
+                    [params[1], +params[2]],
                     (err, res) => {
                         if (err) {
                             console.error(err);
@@ -208,7 +210,8 @@ let statements = {
         },
         selectAll: function () {
             sqlutil.transactions.perform(
-                parametrizedQueries.derivableValues.zahtevZaPonudu.selectAll,
+                parametrizedQueries.derivableValues.stavkaZahteva.selectAll,
+                null,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -219,17 +222,17 @@ let statements = {
         },
         selectOne: function () {
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite id:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.derivableValues.zahtevZaPonudu.selectOne,
+                    parametrizedQueries.derivableValues.stavkaZahteva.selectOne,
                     [id],
                     (err, res) => {
                         if (err) {
@@ -243,7 +246,7 @@ let statements = {
         },
         deleteAll: function () {
             sqlutil.transactions.perform(
-                parametrizedQueries.derivableValues.zahtevZaPonudu.deleteAll,
+                parametrizedQueries.derivableValues.stavkaZahteva.deleteAll,
                 (err, res) => {
                     if (err) {
                         console.error(err);
@@ -254,17 +257,17 @@ let statements = {
         },
         deleteOne: function () {
             let rl = readline.createInterface({
-                input: process.stdin
+                input: process.stdin,
+                output: process.stdout,
+                terminal: false
             });
 
-            console.log('Unesite id:');
-
-            rl.on('line', (line) => {
+            rl.question('Unesite id:', (line) => {
                 let id = +line;
                 rl.close();
 
                 sqlutil.transactions.perform(
-                    parametrizedQueries.derivableValues.zahtevZaPonudu.deleteOne,
+                    parametrizedQueries.derivableValues.stavkaZahteva.deleteOne,
                     [id],
                     (err, res) => {
                         if (err) {

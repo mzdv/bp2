@@ -179,8 +179,8 @@ let menuTree = [
                     action: query.derivableValues.zahtevZaPonudu.selectOne,
                 },
                 {
-                    name: 'Izvuci sve stavke ponude koje pripadaju ponudi',
-                    action: query.derivableValues.zahtevZaPonudu.selectAllStavkaZahtevZaPonudu
+                    name: 'Izvuci sve stavke ponude koje pripadaju zahtevu',
+                    action: query.derivableValues.zahtevZaPonudu.zahtevZaPonuduZahtevi
                 },
                 {
                     name: 'Obrisi sve zahteve za ponudu',
@@ -205,10 +205,6 @@ let menuTree = [
                 {
                     name: 'Izvuci jednu stavku zahteva',
                     action: query.derivableValues.stavkaZahteva.selectOne,
-                },
-                {
-                    name: 'Izvuci sve zahteve koje pripadaju stavki zahteva',
-                    action: query.derivableValues.stavkaZahteva.selectAllZahtev
                 },
                 {
                     name: 'Obrisi sve stavke zahteva',

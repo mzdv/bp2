@@ -135,10 +135,10 @@ let menuTree = [
                     name: 'Kreiraj novi carinski dokument',
                     action: query.structuredType.create,
                 },
-                {
-                    name: 'Izmeni carinski dokument',
-                    action: query.structuredType.update
-                },
+                // {    // to rewrite if time permits
+                //     name: 'Izmeni carinski dokument',
+                //     action: query.structuredType.update
+                // },
                 {
                     name: 'Izvuci sve carinske dokumente',
                     action: query.structuredType.selectAll,
@@ -148,7 +148,7 @@ let menuTree = [
                     action: query.structuredType.selectOne,
                 },
                 {
-                    name: 'Obrisi sve carinski dokument',
+                    name: 'Obrisi sve carinske dokumente',
                     action: query.structuredType.deleteAll,
                 },
                 {

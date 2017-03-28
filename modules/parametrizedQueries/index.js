@@ -57,8 +57,8 @@ module.exports = {
     },
 
     structuredType: {
-        selectAll: 'SELECT * FROM "CarinskiDokument"',
-        selectOne: 'SELECT * FROM "CarinskiDokument" WHERE "Sifra"= :id',
+        selectAll: 'SELECT "Sifra", "Datum" FROM "CarinskiDokument"',
+        selectOne: 'SELECT "Sifra", "Datum" FROM "CarinskiDokument" WHERE "Sifra"= :id',
         create: 'INSERT INTO "CarinskiDokument" VALUES (:sifra, "obj_deklaracija"(:serijskiBroj, :laboratorija, :sadrzaj), :datum)',
         update: {
             preColumn: 'UPDATE "CarinskiDokument" SET ',
@@ -66,19 +66,17 @@ module.exports = {
         },
         deleteOne: 'DELETE FROM "CarinskiDokument" WHERE "Sifra"=:id',
         deleteAll: 'DELETE "CarinskiDokument"',
-        structuredType: {
-            serialNumber: {
-                selectAll: 'SELECT cd."Deklaracija".getSerijskiBroj() FROM "CarinskiDokument" cd',
-                selectOne: 'SELECT cd."Deklaracija".getSerijskiBroj() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
-            },
-            laboratory: {
-                selectAll: 'SELECT cd."Deklaracija".getLaboratorija() FROM "CarinskiDokument" cd',
-                selectOne: 'SELECT cd."Deklaracija".getLaboratorija() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
-            },
-            content: {
-                selectAll: 'SELECT cd."Deklaracija".getSadrzaj() FROM "CarinskiDokument" cd',
-                selectOne: 'SELECT cd."Deklaracija".getSadrzaj() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
-            }
+        serialNumber: {
+            selectAll: 'SELECT cd."Deklaracija".getSerijskiBroj() FROM "CarinskiDokument" cd',
+            selectOne: 'SELECT cd."Deklaracija".getSerijskiBroj() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
+        },
+        laboratory: {
+            selectAll: 'SELECT cd."Deklaracija".getLaboratorija() FROM "CarinskiDokument" cd',
+            selectOne: 'SELECT cd."Deklaracija".getLaboratorija() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
+        },
+        content: {
+            selectAll: 'SELECT cd."Deklaracija".getSadrzaj() FROM "CarinskiDokument" cd',
+            selectOne: 'SELECT cd."Deklaracija".getSadrzaj() FROM "CarinskiDokument" cd WHERE "Sifra"=:id'
         }
     },
     derivableValues: {
